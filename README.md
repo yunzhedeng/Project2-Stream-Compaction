@@ -70,6 +70,8 @@ int bankOffset = index >> 5;
 temp[index + bankOffset]
 ```
 
+This implementation uses a single CUDA block and supports up to 2048 padded elements.
+
 ## 3. Block Size Optimization
 
 ### Block Size Performance Results
@@ -103,6 +105,8 @@ Based on these results, a block size of 256 was selected for the following perfo
 
 ![](./own-img/scan_performance_log.png)
 
+Both axes are shown on logarithmic scales to make the runtimes easier to compare across different array sizes.
+
 ### 4.3 Analysis
 
 The CPU scan is the fastest for most of the tested array sizes. Its runtime increases as the array gets larger, which makes sense because the CPU version is a simple loop that reads the array once.
@@ -118,6 +122,8 @@ Nsight Systems Report
 ![img](./own-img/thrust.png)
 
 ## 5. Test Output
+
+In addition to the provided tests, I added power-of-two and non-power-of-two correctness tests for the GPU radix sort and shared-memory scan implementations.
 
 ```text
 ****************
@@ -194,7 +200,7 @@ Nsight Systems Report
 
 ## Build Notes
 
-`CMakeLists.txt` was modified to support CUDA 13.3 builds on Windows with Visual Studio.
+`CMakeLists.txt` was modified to support CUDA Toolkit 13.3 builds on Windows with Visual Studio.
 
 The original project only added the CUDA toolkit include directory on UNIX systems. Modified it so the CUDA include directory is also available on Windows, which fixes the `cuda.h` not found error.
 
