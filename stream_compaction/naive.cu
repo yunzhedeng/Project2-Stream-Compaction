@@ -46,7 +46,7 @@ namespace StreamCompaction {
                 cudaMemcpyHostToDevice
             );
 
-            const int blockSize = 128;
+            const int blockSize = 256;
             const int blocks = (n + blockSize - 1) / blockSize;
             
             timer().startGpuTimer();
